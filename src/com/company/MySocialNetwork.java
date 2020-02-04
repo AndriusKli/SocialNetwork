@@ -36,14 +36,9 @@ public class MySocialNetwork implements SocialNetwork {
         if (s == null || s1 == null) {
             throw new IllegalArgumentException();
         }
-        Friend foundFriend = friends.stream()
+        return friends.stream()
                 .filter(entry -> entry.getFirstName().equals(s) && entry.getLastName().equals(s1))
-                .findFirst().orElse(null);
-        if (foundFriend == null) {
-            throw new FriendNotFoundException(s, s1);
-        } else {
-            return foundFriend;
-        }
+                .findFirst().orElseThrow(() -> new FriendNotFoundException(s, s1));
     }
 
     @Override
